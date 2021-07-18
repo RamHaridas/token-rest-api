@@ -1,0 +1,11 @@
+Flask==1.1.2
+Flask-RESTful
+Flask-JWT
+Flask-SQLAlchemy
+firebase-admin
+Flask-Migrate==2.6.0 
+Flask-Script
+Flask-Assets
+alembic
+uwsgi
+psycopg2

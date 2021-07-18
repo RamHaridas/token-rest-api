@@ -40,6 +40,10 @@ api = Api(app)
 api.add_resource(UserResource,'/user')
 
 
+@app.route('/')
+def home():
+    return "YOU DON NOT HAVE PERMISSION TO VISIT THIS PAGE"
+
 
 
 

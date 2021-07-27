@@ -8,6 +8,7 @@ class BranchModel(db.Model):
     ifsc = db.Column(db.String(length=None))
     address = db.Column(db.String(length=None))
     image = db.Column(db.String(length=None))
+    isBlocked = db.Column(db.Boolean,default=False)
 
 
     def __init__(self,name,ifsc):
@@ -40,3 +41,8 @@ class BranchModel(db.Model):
     @classmethod
     def get_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
+
+    
+    @classmethod
+    def get_by_ifsc(cls, ifsc):
+        return cls.query.filter_by(ifsc=ifsc).first()

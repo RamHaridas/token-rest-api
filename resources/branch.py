@@ -19,7 +19,7 @@ class BranchResource(Resource):
     
     def get(self):
         local = reqparse.RequestParser()
-        local.add_argument('id', type=int,required=True)
+        local.add_argument('id', type=int,required=False)
         data = local.parse_args()
         branch = BranchModel.get_by_id(data['id'])
         if branch:

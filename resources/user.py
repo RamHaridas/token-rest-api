@@ -7,7 +7,7 @@ class UserResource(Resource):
     parser.add_argument('guid',type=str,required=True)
     parser.add_argument('name',type=str,required=True)
     parser.add_argument('image',type=str,required=True)
-
+    parser.add_argument('email',type=str,required=True)
 
 
 

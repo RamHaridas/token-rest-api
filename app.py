@@ -1,3 +1,4 @@
+from resources.service import ServiceResource
 from flask import Flask, render_template
 from resources.user import UserResource
 from resources.branch import BranchResource
@@ -25,7 +26,7 @@ local_url =  'postgresql://%(user)s:\
 %(pw)s@%(host)s:%(port)s/%(db)s' % postgres_url
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = heroku_postgres_url if online else local_url
+app.config['SQLALCHEMY_DATABASE_URI'] = normal if online else local_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 api = Api(app)
@@ -40,6 +41,7 @@ api = Api(app)
 #add api endpoints here
 api.add_resource(UserResource,'/user')
 api.add_resource(BranchResource,'/branch')
+api.add_resource(ServiceResource,'/service')
 
 
 @app.route('/')
@@ -51,9 +53,9 @@ def home():
 
 
 #keep this commented out for online
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 
 

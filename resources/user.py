@@ -34,7 +34,7 @@ class UserResource(Resource):
         return {'msg':'User not found'},404
 
     
-    def delte(self):
+    def delete(self):
         local = reqparse.RequestParser()
         local.add_argument('id', type=int,required=True)
         data = local.parse_args()

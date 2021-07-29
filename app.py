@@ -63,8 +63,8 @@ def home():
 if __name__ == '__main__':
     from db import db
     db.init_app(app)
-    migrate = Migrate(app,db)
-    manager = Manager(app)
-    manager.add_command('db', MigrateCommand)
-    manager.run()
+    # migrate = Migrate(app,db)
+    # manager = Manager(app)
+    # manager.add_command('db', MigrateCommand)
+    # manager.run()
     app.run(port=5000, debug=True)

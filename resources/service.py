@@ -1,3 +1,4 @@
+from models.branch import BranchModel
 from models.service import ServiceModel
 from flask_restful import reqparse,Resource
 
@@ -11,6 +12,9 @@ class ServiceResource(Resource):
 
     def post(self):
         data = self.parser.parse_args()
+        if not BranchModel.get_by_id(data['bid']):
+            return {'msg':'Branch does not exist'},404
+        
         if ServiceModel.get_by_name_and_branch(data['name'],data['bid']):
             return {'msg':'Service with same name already exists'},400
         
@@ -21,16 +25,16 @@ class ServiceResource(Resource):
     
     def get(self):
         local = reqparse.RequestParser()
-        local.add_argument('id', type=int,required=False)
-
-        return {'msg':[s.json() for s in ServiceModel.get_all_services()]}
+        local.add_argument('bid', type=int,required=True)
+        data = local.parse_args()
+        return {'services':[s.json() for s in ServiceModel.get_all_services(data['bid'])]}
 
     
     def put(self):
         local = reqparse.RequestParser()
         local.add_argument('id', type=int,required=True)
         local.add_argument('name',type=str,required=False)
-        local.add_argument('document',type=str,required=False)
+        local.add_argument('documents',type=str,required=False)
         local.add_argument('isBlocked',type=int,required=False)
 
         data = local.parse_args()

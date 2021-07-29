@@ -1,5 +1,5 @@
 from db import db
-
+from sqlalchemy.sql.expression import false
 
 class BranchModel(db.Model):
     __tablename__ = 'token_branch_tbl'
@@ -31,7 +31,19 @@ class BranchModel(db.Model):
             'id':self.id,
             'name':self.name,
             'ifsc':self.ifsc,
+            'isBlocked':self.isBlocked,
         }
+    
+
+    def update(self,id,name,ifsc,isBlocked):
+        if name:
+            self.name = name
+        if ifsc:
+            self.ifsc = ifsc
+        if isBlocked:
+            self.isBlocked = True if isBlocked > 0 else False
+        db.session.commit()
+
 
     @classmethod
     def get_by_id(cls, id):
@@ -46,3 +58,7 @@ class BranchModel(db.Model):
     @classmethod
     def get_by_ifsc(cls, ifsc):
         return cls.query.filter_by(ifsc=ifsc).first()
+
+    @classmethod
+    def get_all_branches(cls):
+        return cls.query.filter_by(isBlocked=False).all()

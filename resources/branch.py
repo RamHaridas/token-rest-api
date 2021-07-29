@@ -25,7 +25,7 @@ class BranchResource(Resource):
         if branch:
             return branch.json(),200
         
-        return {'branch':[b.json() for b in BranchModel.query.all()]},200
+        return {'branch':[b.json() for b in BranchModel.get_all_branches()]},200
 
     
     def delete(self):
@@ -39,4 +39,17 @@ class BranchResource(Resource):
         
         return {'msg':'Branch not found'},404
     
-    
+
+    def put(self):
+        local = reqparse.RequestParser()
+        local.add_argument('id', type=int,required=True)
+        local.add_argument('name', type=str,required=False)
+        local.add_argument('ifsc', type=str,required=False)
+        local.add_argument('isBlocked', type=int,required=False)
+
+        data = local.parse_args()
+        branch = BranchModel.get_by_id(data['id'])
+        if branch:
+            branch.update(**data)
+            return branch.json(),200
+        return {'msg':'Branch not found'},404

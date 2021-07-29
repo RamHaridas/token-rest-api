@@ -32,7 +32,7 @@ class ServiceModel(db.Model):
             'documents':self.documents,
         }
 
-    def update(self,name,documents,isBlocked):
+    def update(self,id,name,documents,isBlocked):
         if name:
             self.name = name
         if documents:
@@ -43,8 +43,8 @@ class ServiceModel(db.Model):
     
     
     @classmethod
-    def get_all_services(cls):
-        return cls.query.filter_by(isBlocked=True).all()
+    def get_all_services(cls,bid):
+        return cls.query.filter_by(bid=bid,isBlocked=False).all()
 
     @classmethod
     def get_by_name_and_branch(cls, name, bid):

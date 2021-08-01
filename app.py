@@ -1,3 +1,5 @@
+from resources.admin import AdminResource
+from resources.counter import CounterResource
 from resources.service import ServiceResource
 from flask import Flask, render_template
 from resources.user import UserResource
@@ -42,6 +44,8 @@ api = Api(app)
 api.add_resource(UserResource,'/user')
 api.add_resource(BranchResource,'/branch')
 api.add_resource(ServiceResource,'/service')
+api.add_resource(CounterResource,'/counter')
+api.add_resource(AdminResource,'/admin')
 
 
 @app.route('/')

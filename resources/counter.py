@@ -7,6 +7,7 @@ class CounterResource(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('no',type=str,required=True)
     parser.add_argument('bid',type=int,required=True)
+    parser.add_argument('sid',type=int,required=True)
 
 
     def post(self):
@@ -23,6 +24,7 @@ class CounterResource(Resource):
     def get(self):
         local = reqparse.RequestParser()
         local.add_argument('bid', type=int,required=True)
+        local.add_argument('sid', type=int,required=True)
         data = local.parse_args()
 
         return {'counters':[c.json() for c in CounterModel.get_all_counters(**data)]}

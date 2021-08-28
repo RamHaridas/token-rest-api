@@ -4,13 +4,15 @@ class CounterModel(db.Model):
     __tablename__ = 'counter_tbl'
     id = db.Column(db.Integer, primary_key=True)
     bid = db.Column(db.Integer)
+    sid = db.Column(db.Integer)
     no = db.Column(db.String(length=None))
     isBlocked = db.Column(db.Boolean,default=False)
 
 
-    def __init__(self,no,bid):
+    def __init__(self,no,bid,sid):
         self.no = no
         self.bid = bid
+        self.sid = sid
     
 
     def save(self):
@@ -45,5 +47,5 @@ class CounterModel(db.Model):
         return cls.query.filter_by(no=number,bid=bid).first()
     
     @classmethod
-    def get_all_counters(cls,bid):
-        return cls.query.filter_by(bid=bid,isBlocked=False).all()
+    def get_all_counters(cls,bid,sid):
+        return cls.query.filter_by(sid=sid,bid=bid,isBlocked=False).all()

@@ -44,7 +44,7 @@ class ServiceModel(db.Model):
     
     @classmethod
     def get_all_services(cls,bid):
-        return cls.query.filter_by(bid=bid,isBlocked=False).all()
+        return cls.query.filter_by(bid=bid).all()
 
     @classmethod
     def get_by_name_and_branch(cls, name, bid):

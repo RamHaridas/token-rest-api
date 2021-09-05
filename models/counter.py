@@ -48,4 +48,4 @@ class CounterModel(db.Model):
     
     @classmethod
     def get_all_counters(cls,bid,sid):
-        return cls.query.filter_by(sid=sid,bid=bid,isBlocked=False).all()
+        return cls.query.filter_by(sid=sid,bid=bid).all()

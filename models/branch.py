@@ -61,4 +61,4 @@ class BranchModel(db.Model):
 
     @classmethod
     def get_all_branches(cls):
-        return cls.query.filter_by(isBlocked=False).all()
+        return cls.query.filter_by().all()

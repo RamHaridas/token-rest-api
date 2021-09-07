@@ -37,13 +37,13 @@ class SlotModel(db.Model):
             self.isBlocked = True if isBlocked > 0 else False
         db.session.commit()
 
-    def bookSlot(self):
-        self.token = self.token - 1
-        db.session.commit()
+    # def bookSlot(self):
+    #     self.token = self.token - 1
+    #     db.session.commit()
 
-    def releaseSlot(self):
-        self.token = self.token + 1
-        db.session.commit()
+    # def releaseSlot(self):
+    #     self.token = self.token + 1
+    #     db.session.commit()
 
     def json(self):
 

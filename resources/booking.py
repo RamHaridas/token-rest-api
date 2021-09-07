@@ -29,8 +29,6 @@ class BookingResource(Resource):
             return {'msg': 'Service not found'}, 404
         elif not slot:
             return {'msg': 'Slot not found'}, 404
-        elif slot.token <= 0:
-            return {'msg': 'Sorry, No Slots Available'}, 400
         elif BookingModel.get_by_uid_sid(data['uid'], data['sid']):
             return {'msg': 'You have already booked a slot today'}, 400
         elif len(bookings) >= slot.token:
@@ -71,7 +69,7 @@ class BookingResource(Resource):
         local.add_argument('id', type=int, required=False)
         data = local.parse_args()
         book = BookingModel.get_by_id(data['id'])
-        slot = SlotModel.get_by_id(book.slot)
+        #slot = SlotModel.get_by_id(book.slot)
         if book:
             book.delete()
             return {'msg': 'Slot Deleted Successfully'}, 200

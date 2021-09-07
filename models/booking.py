@@ -16,6 +16,7 @@ class BookingModel(db.Model):
     start = db.Column(db.Time)
     end = db.Column(db.Time)
     added_on = db.Column(db.Date)
+    pdf = db.Column(db.String(length=None))  # url of pdf
 
     def __init__(self, bid, sid, cid, slot, uid, name, start, end, service, branch):
         self.bid = bid

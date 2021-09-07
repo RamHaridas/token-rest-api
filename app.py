@@ -1,3 +1,4 @@
+from resources.appointment import AppointmentResource
 from resources.executives import ExcecutiveResource
 from resources.booking import BookingResource
 from resources.slot import SlotResource
@@ -52,6 +53,7 @@ api.add_resource(AdminResource, '/admin')
 api.add_resource(SlotResource, '/slots')
 api.add_resource(BookingResource, '/book')
 api.add_resource(ExcecutiveResource, '/executives')
+api.add_resource(AppointmentResource, '/appointment')
 
 
 @app.route('/')

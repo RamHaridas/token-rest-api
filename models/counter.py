@@ -26,7 +26,7 @@ class CounterModel(db.Model):
 
     
     def json(self):
-        return {"id":self.id,"number":self.no,"isBlocked":self.isBlocked}
+        return {"id":self.id,"number":self.no,"isBlocked":self.isBlocked,'bid':self.bid,'sid':self.sid}
 
     
     def update(self,id,no,isBlocked):

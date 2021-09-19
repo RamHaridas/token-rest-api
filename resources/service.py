@@ -1,5 +1,6 @@
 from models.branch import BranchModel
 from models.service import ServiceModel
+from models.executives import ExecutiveModel
 from flask_restful import reqparse,Resource
 
 
@@ -27,7 +28,10 @@ class ServiceResource(Resource):
         local = reqparse.RequestParser()
         local.add_argument('bid', type=int,required=True)
         data = local.parse_args()
-        return {'services':[s.json() for s in ServiceModel.get_all_services(data['bid'])]}
+        return {
+            'services':[s.json() for s in ServiceModel.get_all_services(data['bid'])],
+            'executives': [e.json() for e in ExecutiveModel.get_by_branch(data['bid'])]
+        },200
 
     
     def put(self):

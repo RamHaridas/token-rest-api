@@ -1,5 +1,6 @@
 from db import db
 from datetime import time
+from sqlalchemy import asc
 
 
 class SlotModel(db.Model):
@@ -63,4 +64,4 @@ class SlotModel(db.Model):
 
     @classmethod
     def get_all_slots(cls, bid, sid):
-        return cls.query.filter_by(sid=sid, bid=bid).all()
+        return cls.query.filter_by(sid=sid, bid=bid).order_by(asc(cls.start)).all()

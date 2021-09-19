@@ -31,8 +31,18 @@ class SlotResource(Resource):
         local = reqparse.RequestParser()
         local.add_argument('bid', type=int, required=True)
         local.add_argument('sid', type=int, required=True)
+        local.add_argument('time', type=str, required=False)
         data = local.parse_args()
-
+        if data['time']:
+            try:
+                start = datetime.strptime(data['time'], '%H:%M:%S')
+            except:
+                return {'msg': 'Invalid Time Format'}, 400
+            slots = []
+            for slot in SlotModel.get_all_slots(data['bid'], data['sid']):
+                if slot.start > start.time():
+                    slots.append(slot.json())
+            return {'slots': slots}, 200
         return {'slots': [s.json() for s in SlotModel.get_all_slots(data['bid'], data['sid'])]}, 200
         # end
 

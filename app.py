@@ -15,7 +15,7 @@ from flask_script import Manager
 import psycopg2
 import os
 
-online = False  # True for production and False for offline debug purposes
+online = True  # True for production and False for offline debug purposes
 
 normal = os.environ.get('MY_DATABASE_URL')
 
@@ -62,9 +62,9 @@ def home():
 
 
 # keep this commented out for online
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 
 if __name__ == '__main__':

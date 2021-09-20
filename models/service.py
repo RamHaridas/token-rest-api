@@ -30,6 +30,7 @@ class ServiceModel(db.Model):
             'name':self.name,
             'bid':self.bid,
             'documents':self.documents,
+            'isBlocked':self.isBlocked,
         }
 
     def update(self,id,name,documents,isBlocked):

@@ -32,8 +32,8 @@ class CounterModel(db.Model):
     def update(self,id,no,isBlocked):
         if no:
             self.no = no
-        if isBlocked:
-            self.isBlocked = True if isBlocked > 0 else False
+        if isBlocked in [0,1]:
+            self.isBlocked = True if isBlocked == 1 else False
         db.session.commit()
 
     

@@ -60,7 +60,15 @@ api.add_resource(AppointmentResource, '/appointment')
 def home():
     return "YOU DON NOT HAVE PERMISSION TO VISIT THIS PAGE"
 
-
+# CORS ENABLING
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers',
+                         'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods',
+                         'GET,PUT,POST,DELETE,PATCH')
+    return response
 # keep this commented out for online
 # @app.before_first_request
 # def create_tables():

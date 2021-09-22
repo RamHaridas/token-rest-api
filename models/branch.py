@@ -40,8 +40,8 @@ class BranchModel(db.Model):
             self.name = name
         if ifsc:
             self.ifsc = ifsc
-        if isBlocked:
-            self.isBlocked = True if isBlocked > 0 else False
+        if isBlocked in [0,1]:
+            self.isBlocked = True if isBlocked == 1 else False
         db.session.commit()
 
 

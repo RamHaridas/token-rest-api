@@ -32,7 +32,7 @@ class CounterResource(Resource):
             if not cust:
                 return {'msg': 'Counter not found'},404
             return cust.json(),200
-        return {'counters':[c.json() for c in CounterModel.get_all_counters(**data)]}
+        return {'counters':[c.json() for c in CounterModel.get_all_counters(data['bid'],data['sid'])]}
 
 
     def put(self):

@@ -26,13 +26,20 @@ class SlotResource(Resource):
         return slot.json(), 200
         # end
 
+
     # @desc to get slot list based on branch and service
     def get(self):
         local = reqparse.RequestParser()
-        local.add_argument('bid', type=int, required=True)
-        local.add_argument('sid', type=int, required=True)
+        local.add_argument('id', type=int,required=False)
+        local.add_argument('bid', type=int, required=False)
+        local.add_argument('sid', type=int, required=False)
         local.add_argument('time', type=str, required=False)
         data = local.parse_args()
+        if data['id']:
+            slot = SlotModel.get_by_id(data['id'])
+            if not slot:
+                return {'msg': 'Slot not found'},404
+            return slot.json(), 200
         if data['time']:
             try:
                 start = datetime.strptime(data['time'], '%H:%M:%S')
@@ -45,6 +52,7 @@ class SlotResource(Resource):
             return {'slots': slots}, 200
         return {'slots': [s.json() for s in SlotModel.get_all_slots(data['bid'], data['sid'])]}, 200
         # end
+
 
     # @desc to delete a slot
     def delete(self):

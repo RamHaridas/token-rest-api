@@ -26,8 +26,15 @@ class ServiceResource(Resource):
     
     def get(self):
         local = reqparse.RequestParser()
-        local.add_argument('bid', type=int,required=True)
+        local.add_argument('id', type=int,required=False)
+        local.add_argument('bid', type=int,required=False)
         data = local.parse_args()
+        if data['id']:
+            service = ServiceModel.get_by_id(data['id'])
+            if not service:
+                return {"msg":"Service not found"},404
+            return service.json(),200
+        
         return {
             'services':[s.json() for s in ServiceModel.get_all_services(data['bid'])],
             'executives': [e.json() for e in ExecutiveModel.get_by_branch(data['bid'])]

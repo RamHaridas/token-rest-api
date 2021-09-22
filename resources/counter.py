@@ -23,10 +23,15 @@ class CounterResource(Resource):
 
     def get(self):
         local = reqparse.RequestParser()
-        local.add_argument('bid', type=int,required=True)
-        local.add_argument('sid', type=int,required=True)
+        local.add_argument('id', type=int,required=False)
+        local.add_argument('bid', type=int,required=False)
+        local.add_argument('sid', type=int,required=False)
         data = local.parse_args()
-
+        if data['id']:
+            cust = CounterModel.get_by_id(data['id'])
+            if not cust:
+                return {'msg': 'Counter not found'},404
+            return cust.json(),200
         return {'counters':[c.json() for c in CounterModel.get_all_counters(**data)]}
 
 

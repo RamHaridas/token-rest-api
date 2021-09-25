@@ -42,6 +42,10 @@ class BookingModel(db.Model):
     def json(self):
         return{
             'id': self.id,
+            'bid':self.bid,
+            'sid':self.sid,
+            'slot':self.slot,
+            'uid':self.uid,
             'name': self.name,
             'start': self.start.strftime("%I.%M %p"),
             'end': self.end.strftime("%I.%M %p"),

@@ -1,5 +1,7 @@
 from flask_restful import reqparse, Resource
 from models.executives import ExecutiveModel
+import werkzeug
+from firebase import FireBaseService
 
 
 class ExcecutiveResource(Resource):
@@ -8,11 +10,16 @@ class ExcecutiveResource(Resource):
     parser.add_argument('designation', type=str, required=True)
     parser.add_argument('mobile', type=str, required=False)
     parser.add_argument('email', type=str, required=False)
+    parser.add_argument('image', type=werkzeug.datastructures.FileStorage, required=False,location='files')
     parser.add_argument('bid', type=int, required=True)
 
     def post(self):
         data = self.parser.parse_args()
-
+        file = data['image']
+        if file:
+            fb = FireBaseService()
+            data['image'] = fb.uploadFile(file)
+        
         exec = ExecutiveModel(**data)
         exec.save()
         return exec.json(), 200

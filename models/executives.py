@@ -10,8 +10,9 @@ class ExecutiveModel(db.Model):
     designation = db.Column(db.String(length=None))
     mobile = db.Column(db.String(length=None))
     email = db.Column(db.String(length=None))
+    image = db.Column(db.String(length=None))
 
-    def __init__(self, bid, name, designation, email, mobile):
+    def __init__(self, bid, name, designation, email, mobile,image):
         self.name = name
         self.bid = bid
         self.designation = designation
@@ -19,6 +20,8 @@ class ExecutiveModel(db.Model):
             self.email = email
         if mobile:
             self.mobile = mobile
+        if image:
+            self.image = image
 
     def save(self):
         db.session.add(self)
@@ -35,7 +38,8 @@ class ExecutiveModel(db.Model):
             'designation': self.designation,
             'mobile': self.mobile or "",
             'email': self.email or "",
-            'bid': self.bid
+            'bid': self.bid,
+            'image': self.image or "",
         }
 
     @classmethod

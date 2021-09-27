@@ -69,6 +69,8 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Methods',
                          'GET,PUT,POST,DELETE,PATCH')
     return response
+
+    
 # keep this commented out for online
 # @app.before_first_request
 # def create_tables():

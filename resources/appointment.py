@@ -9,6 +9,7 @@ class AppointmentResource(Resource):
     parser.add_argument('uid', type=int, required=True)
     parser.add_argument('eid', type=int, required=True)
     parser.add_argument('bid', type=int, required=True)
+    parser.add_argument('reason',type=str, required=False)
 
     def post(self):
         data = self.parser.parse_args()

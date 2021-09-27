@@ -17,9 +17,10 @@ class AppointmentModel(db.Model):
     end = db.Column(db.Time)
     added_on = db.Column(db.Date)
     approved = db.Column(db.Integer)
+    reason = db.Column(db.String(length=None))
     pdf = db.Column(db.String(length=None))
 
-    def __init__(self, uid, eid, bid, user_name, user_email, exec_name, designation):
+    def __init__(self, uid, eid, bid, user_name, user_email, exec_name, designation,reason):
         self.uid = uid
         self.eid = eid
         self.user_email = user_email
@@ -27,6 +28,8 @@ class AppointmentModel(db.Model):
         self.user_name = user_name
         self.designation = designation
         self.exec_name = exec_name
+        if reason:
+            self.reason = reason
         self.added_on = datetime.utcnow().astimezone(timezone('Asia/Kolkata')).date()
 
     def approve(self, approve, start, added_on):
@@ -67,6 +70,7 @@ class AppointmentModel(db.Model):
             'end': self.end.strftime("%I.%M %p") if self.end else "",
             'added_on': str(self.added_on),
             'approved': status,
+            'reason': self.reason or "",
             'pdf': self.pdf or ""
         }
 

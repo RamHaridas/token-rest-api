@@ -37,3 +37,14 @@ class ExcecutiveResource(Resource):
                 return exec.json(), 200
 
         return {'msg': 'Not found'}, 404
+    
+    
+    def delete(self):
+        local = reqparse.RequestParser()
+        local.add_argument('id', type=int, default=True)
+        data = local.parse_args()
+        exec = ExecutiveModel.get_by_id(data['id'])
+        if exec:
+            exec.delete()
+            return {'msg': 'Deleted'},200
+        return {'msg':'Not found'}, 404

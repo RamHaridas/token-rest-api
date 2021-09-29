@@ -51,3 +51,14 @@ class AppointmentResource(Resource):
                 return app.json(), 200
 
         return {'msg': 'Appointment not found'}, 404
+
+
+    def delete(self):
+        local = reqparse.RequestParser()
+        local.add_argument('id', type=int, default=True)
+        data = local.parse_args()
+        app = AppointmentModel.get_by_id(data['id'])
+        if app:
+            app.delete()
+            return {'msg': 'Deleted'},200
+        return {'msg':'Not found'}, 404

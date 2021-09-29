@@ -1,3 +1,4 @@
+from models.executives import ExecutiveModel
 from db import db
 from datetime import datetime
 from pytz import timezone
@@ -52,6 +53,10 @@ class AppointmentModel(db.Model):
 
     def json(self):
         status = "Pending for approval"
+        image = ""
+        exec = ExecutiveModel.get_by_id(self.eid)
+        if exec:
+            image = exec.image or ""
         if self.approved == 1:
             status = 'Approved'
         elif self.approved == 0:
@@ -71,7 +76,8 @@ class AppointmentModel(db.Model):
             'added_on': str(self.added_on),
             'approved': status,
             'reason': self.reason or "",
-            'pdf': self.pdf or ""
+            'pdf': self.pdf or "",
+            "image":image
         }
 
     @classmethod
